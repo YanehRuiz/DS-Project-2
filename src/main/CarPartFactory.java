@@ -51,7 +51,7 @@ public class CarPartFactory {
 		storeInInventory();
 		
  		this.defectives = new HashTableSC<Integer, Integer>(25, new BasicHashFunction());
-		// storeInInventory();
+		 storeInInventory();
 
 	}
 	public List<PartMachine> getMachines() {
@@ -229,6 +229,18 @@ public class CarPartFactory {
 		
 
 	}
+	
+	
+	
+	
+	/**
+	 * 
+	 * While production isnt null or empty, then we pop it. If the part 
+	 * is defective we increment the defective counter.
+	 * If its not defective we add it to the inventory list.
+	 * 
+	 * 
+	 **/
 
 	public void storeInInventory() {
 		
@@ -237,12 +249,34 @@ public class CarPartFactory {
 			//we pop it
 			//if defective - def++
 			//if!def .add list 
-	//	}
+	
 		
+		    while (!production.isEmpty()) {
+		        CarPart part = production.pop();
+
+		        if (part.isDefective()) {
+		            int partId = part.getId();
+		            Integer defectiveCount = defectives.get(partId);
+		            if (defectiveCount == null) {
+		                defectiveCount = 0;
+		            }
+		            defectives.put(partId, defectiveCount + 1);
+		        } else {
+		            int partId = part.getId();
+		            List<CarPart> partList = inventory.get(partId);
+
+		            if (partList == null) {
+		                partList = new ArrayList<>();
+		                inventory.put(partId, partList);
+		            }
+
+		            partList.add(part);
+		        }
+		    }
+		}
 
 
 
-	}
 	public void runFactory(int days, int minutes) {
 		//for loop
 		//while loop

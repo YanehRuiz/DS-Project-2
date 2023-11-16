@@ -108,7 +108,17 @@ public class PartMachine {
 		this.chanceOfDefective = chanceOfDefective;
 	}
 
-
+	
+	
+	/**
+	 * 
+	 * 
+	 *  resetConveyorBelt: Clears the belt and makes it entirely null. 
+	 *  The size is always 10, so it will have 10 null elements in the
+	 *  ""belt"" (Queue)
+	 * 
+	 *
+	 **/
 	public void resetConveyorBelt() {
 		//		 this.conveyorBelt = conveyorBelt;
 		conveyorBelt.clear();
@@ -117,15 +127,35 @@ public class PartMachine {
 		}
 
 	}
+	
+	/**
+	 * 
+	 * tickTimer dequeues the front element of the timer. Making it go
+	 * down by one. It "ticks" it.
+	 * 
+	 *
+	 **/
 	public int tickTimer() {
 		
 		int front = getTimer().front();
 		int temp = front;
-		        getTimer().enqueue(getTimer().dequeue()); // tick the queue. 
-		    
+		        getTimer().enqueue(getTimer().dequeue()); 		    
 		    return temp;
 		}
 
+	/**
+	 * 
+	 *
+	 * produceCarParts is a method that passes a constructor for a new Car Part. 
+	 * It passes as parameters the id, name, (Randomly generated) weight, and starts the boolean 
+	 * as false. This boolean is set to true if the piece is found to be defective. The piece is
+	 * defective when the remainder of the parts produced mod chanceofDefective is zero. The piece
+	 * is created when the timer is 0. We randomize the weight from a range consisting of the given
+	 * weight minus/plus the weight error. It also simulates the conveyor belt where a piece is 
+	 * enqueued or dequeued.
+	 * 
+	 *
+	 **/
 	
 	public CarPart produceCarPart() {
 		int timerValue = tickTimer();

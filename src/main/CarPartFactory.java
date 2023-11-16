@@ -26,6 +26,22 @@ public class CarPartFactory {
 
 
 
+	/**
+	 * 
+	 * Constructor that holds the orderPath and partsPath.
+	 * It also initializes the setupMachines, setupOrders
+	 * and setupInventory methods. 
+	 * 
+	 * production Stack and defective Map are also initialized 
+	 * in here
+	 * 
+	 * Under the constructor we have getters and setters for:
+	 * machines, orders, partCatalog, inventory, defectives 
+	 * and production.
+	 *
+	 **/
+	
+	
 	public CarPartFactory(String orderPath, String partsPath) throws IOException {
 		setupMachines(partsPath);
 		setupOrders(orderPath);
@@ -80,6 +96,33 @@ public class CarPartFactory {
 	public void setDefectives(Map<Integer, Integer> defectives) {
 		this.defectives = defectives;
 	}
+	
+	
+	
+	
+	/**
+	 * 
+	 * We read the "Order.csv" File. Using the bufferReader we extract
+	 * the information we need to create a new Order. This orders are
+	 * then added to the list of orders.
+	 * 
+	 * Process: 
+	 * We skip the first line, the one that holds the guidelines for the 
+	 * columns on the file. Then we extract and save the id and name. After 
+	 * extracting the ID and names, we split the list by the "-" which leaves
+	 * us with a list of parenthesis and numbers. After that we remove the 
+	 * parenthesis that hold the orders as a list, called division. This list
+	 * is then split again and parenthesis are taken away. Once the original
+	 * list is broken down into numbers we add these to the hashTable, from 
+	 * this we are able to construct an "order", and save said order to a list.
+	 * 
+	 * TLDR; We read the file, get ID and Name. We split the parenthesis divided by
+	 * "-". We remove the parenthesis, and keep the numbers. We add those numbers
+	 * to a Map. We construct and order, then save this order on a list.
+	 *
+	 **/
+	
+	
 
 	public void setupOrders(String path) throws IOException {
 
@@ -114,6 +157,28 @@ public class CarPartFactory {
 		}
 		reader.close();
 	}  		
+	
+	
+	
+
+	/**
+	 * 
+	 * We read the "Parts.csv" File. Using the bufferReader we extract
+	 * the information we need to create a new partMachine. These machines
+	 * are then added to the machines array. 
+	 * 
+	 * Process: 
+	 * We skip the first line, the one that holds the guidelines for the 
+	 * columns on the file. Then we split bu commas and then we extract 
+	 * and save the id, partName , periods , weightErrors and 
+	 * chanceOfDefectives. For the partName, we make a constructor consisting
+	 * of CarPart's id, name from the list, weights, and we make the boolean false.
+	 * After extracting these, we add the machine to the machines list. We also add
+	 * the id and name to the partCatalogue Map and we push the name of the part
+	 * to the production Stack. 
+	 * 
+	 * 
+	 **/
 
 
 	public void setupMachines(String path) throws IOException {
